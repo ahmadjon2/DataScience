@@ -42,3 +42,21 @@ errorY = root_mean_squared_error(Ytrain,Ytrainpredict)
 print(errorY)
 errorTestY = root_mean_squared_error(Ytest,Ytestpredict)
 print(errorTestY)
+
+#polynomial regression
+
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+poly = PolynomialFeatures(degree=2)
+XtrainPoly = poly.fit_transform(Xtrain)
+linR = LinearRegression()
+linR.fit(XtrainPoly,Ytrain)
+XtestPoly = poly.transform(Xtest)
+Ytrainpredictpoly = linR.predict(XtrainPoly)
+Ytestpredictpoly = linR.predict(XtestPoly)
+
+polyerrorTrainY = root_mean_squared_error(Ytrain,Ytrainpredictpoly)
+print(polyerrorTrainY)
+polyerrorTestY = root_mean_squared_error(Ytest,Ytestpredictpoly)
+print(polyerrorTestY)
