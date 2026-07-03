@@ -1,4 +1,3 @@
-#knn stands for K Nearest Neighbour
 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
@@ -14,6 +13,7 @@ from sklearn.model_selection import train_test_split
 
 X = data[["sepal_length","sepal_width","petal_length","petal_width"]]
 y = data["species"]
+y = le.fit_transform(y)
 
 Xtrain,Xtest,Ytrain,Ytest = train_test_split(X,y,train_size=0.7,random_state=10)
 print(Xtrain,Xtest,Ytrain,Ytest)
@@ -28,4 +28,3 @@ cmtest = confusion_matrix(Ytest,YtestPredict)
 print(cmtrain)
 print(cmtest)
 
-# do the rest logistac regresion on iris data set
