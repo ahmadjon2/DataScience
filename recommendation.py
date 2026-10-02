@@ -31,3 +31,6 @@ def weighted_rating(x,m=m,c=c):
     return ans
 top10p["score"] = top10p.apply(weighted_rating,axis = 1)
 print(top10p)
+
+top10 = top10p.sort_values("score",ascending=False)
+print(top10[["title","score","vote_average","vote_count"]].head(10))
