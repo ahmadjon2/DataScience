@@ -1,0 +1,11 @@
+import pandas as pd
+
+data = pd.read_csv("movies_metadata.csv")
+#print(data.info())
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfid = TfidfVectorizer(stop_words="english")
+data["overview"] = data["overview"].fillna("")
+tfid_matrix = tfid.fit_transform(data["overview"])
+print(tfid_matrix.shape)
+print(tfid_matrix)
