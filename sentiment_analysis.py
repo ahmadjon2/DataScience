@@ -16,8 +16,8 @@ encoder_c(data_train["label"])
 #issue
 import re
 import nltk 
-nltk.download("stopwords")
-nltk.download("wordnet")
+nltk.data.path.append(r"E:\nltk_data")
+
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
@@ -57,4 +57,32 @@ rfc = RandomForestClassifier(max_features = gscv.best_params_["max_features"],
                              min_samples_leaf = gscv.best_params_["min_samples_leaf"],
                              bootstrap = gscv.best_params_["bootstrap"],)
 rfc.fit(X,y)
+
+test_set = pd.read_csv("train.txt",delimiter=";",names=["text","label"])
+xtest,ytest = test_set.text,test_set.label
+ytest = encoder_c(ytest)
+xtest = text_transformation(xtest)
+xtest = cv.transform(xtest)
+Y_predict = rfc.predict(xtest)
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+cr = classification_report(ytest, Y_predict)
+ac = accuracy_score(ytest, Y_predict)
+cm = confusion_matrix(ytest, Y_predict)
+print(cr)
+print(ac)
+print(cm)
+def expression_check(string):
+    if string == 1:
+        print("positive sentiment")
+    elif string == 0:
+        print("negative sentiment")
+    else:
+        print("invalid input")
+def sentiment_predict(input):
+    inputstr = text_transformation(input)
+    text = cv.transform(inputstr)
+    Y_predict_text = rfc.predict(inputstr)
+    expression_check(Y_predict_text)
+input1 = "i lost my bag"
+input2 = "i got fouled in a football match"
 
