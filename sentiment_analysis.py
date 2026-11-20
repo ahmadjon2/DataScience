@@ -50,7 +50,8 @@ parameters = {
 from sklearn.model_selection import GridSearchCV 
 from sklearn.ensemble import RandomForestClassifier
 gscv = GridSearchCV(RandomForestClassifier(),parameters, cv = 5, return_train_score=True, n_jobs=-1 )
-print(gscv.best_params_)
+gscv.fit( X, y )
+print(gscv.best_params_) 
 rfc = RandomForestClassifier(max_features = gscv.best_params_["max_features"],
                              n_etimators = gscv.best_params_["n_etimators"],
                              max_depth = gscv.best_params_["max_depth"],
